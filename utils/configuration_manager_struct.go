@@ -8,5 +8,8 @@ type Configurations struct {
 
 //ConfigurationList collection
 type ConfigurationList struct {
-	ListConfig []Configurations `json:"listconfig"`
+	ConfigurationManagerList []Configurations `json:"configurationmanagerlist"`
 }
+
+//ConfigManager empty struct defination
+type ConfigManager struct{}

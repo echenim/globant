@@ -1,0 +1,8 @@
+{
+    "configurationmanagerlist":[
+        {
+            "port":"8080",
+            "cacheduration":"5"
+        }
+    ]
+}

@@ -7,5 +7,5 @@ import (
 //IRoute interface defination
 type IRoute interface {
 	GET(uri string, f func(resp http.ResponseWriter, req *http.Request))
-	SERVE()
+	SERVE(port string)
 }

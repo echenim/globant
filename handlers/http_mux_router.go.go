@@ -1,28 +1,28 @@
 package handlers
 
 import (
+	"fmt"
 	"net/http"
-
-	"github.com/echenim/globant/utils"
 
 	"github.com/go-chi/chi"
 )
 
 var (
 	dispatcher *chi.Mux
-	port       string
 )
 
 //NewMux is a psudo constractor
-func NewMux(_dispatcher *chi.Mux, _config *utils.Configurations) IRoute {
+func NewMux(_dispatcher *chi.Mux) IRoute {
 	dispatcher = _dispatcher
-	port = _config.Port
 	return &muxRouter{}
 }
 
 func (*muxRouter) GET(uri string, f func(resp http.ResponseWriter, req *http.Request)) {
 	dispatcher.Get(uri, f)
 }
-func (*muxRouter) SERVE() {
+func (*muxRouter) SERVE(port string) {
+	fmt.Println("Server is starting .............")
+	fmt.Println("Server is listing on Port :" + port)
 	http.ListenAndServe(":"+port, dispatcher)
+
 }
