@@ -17,7 +17,7 @@ func NewMux(_dispatcher *chi.Mux) IRoute {
 }
 
 func (*muxRouter) GET(uri string, f func(resp http.ResponseWriter, req *http.Request)) {
-
+	dispatcher.Get(uri, f)
 }
 func (*muxRouter) SERVE(port string) {
 	http.ListenAndServe(":"+port, dispatcher)
