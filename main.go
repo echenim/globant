@@ -1,9 +1,10 @@
 package main
 
 import (
+	"fmt"
+
 	"github.com/echenim/globant/handlers"
 	"github.com/echenim/globant/utils"
-	"github.com/go-chi/chi"
 )
 
 var (
@@ -11,10 +12,12 @@ var (
 )
 
 func main() {
-	config := utils.ReadConfig()
-	r := chi.NewRouter()
+	config := utils.ConfigurationManager()
 
-	_routes = handlers.NewMux(r, config)
+	fmt.Println(config)
+	// r := chi.NewRouter()
 
-	_routes.SERVE()
+	// _routes = handlers.NewMux(r, config)
+
+	// _routes.SERVE()
 }
