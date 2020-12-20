@@ -1,6 +1,10 @@
 package handlers
 
-import "github.com/go-chi/chi"
+import (
+	"net/http"
+
+	"github.com/go-chi/chi"
+)
 
 var (
 	dispatcher *chi.Mux
@@ -10,4 +14,11 @@ var (
 func NewMux(_dispatcher *chi.Mux) IRoute {
 	dispatcher = _dispatcher
 	return &muxRouter{}
+}
+
+func (*muxRouter) GET(uri string, f func(resp http.ResponseWriter, req *http.Request)) {
+
+}
+func (*muxRouter) SERVE() {
+
 }
