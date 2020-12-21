@@ -12,8 +12,7 @@ var (
 )
 
 //NewWeatherController psudo contrustor
-func NewWeatherController(_config *utils.Configurations) IController {
-	config = _config
+func NewWeatherController() IController {
 
 	return &Controller{}
 }
@@ -27,5 +26,9 @@ func (*Controller) Index(resp http.ResponseWriter, req *http.Request) {
 
 //Get function for fetching records
 func (*Controller) Get(resp http.ResponseWriter, req *http.Request) {
+	resp.Header().Set("Content-Type", "application/json")
+	// _city := chi.URLParam(req, "city")
+	// _country := chi.URLParam(req, "country")
+	// _day := chi.URLParam(req, "day")
 
 }
