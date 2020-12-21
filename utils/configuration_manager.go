@@ -5,10 +5,11 @@ import (
 	"fmt"
 	"io/ioutil"
 	"os"
+	"time"
 )
 
-//NewConfigurationManager psudo constructor
-func NewConfigurationManager() IConfigurationManager {
+//NewManager psudo constructor
+func NewManager() IConfigurationManager {
 
 	return &ConfigManager{}
 }
@@ -31,4 +32,38 @@ func (*ConfigManager) ConfigurationManager() *ConfigurationList {
 	json.Unmarshal(configData, &readConfig)
 
 	return readConfig
+}
+
+//UnixToHumanReasible function
+func (*ConfigManager) UnixToHumanReasible(unixTime int64) string {
+	t := time.Unix(unixTime, 0)
+	return t.Format(time.UnixDate)
+}
+
+//WindScale function
+func (*ConfigManager) WindScale(speed float64) string {
+	scale := ""
+	if speed < 1 {
+		scale = "Calm breeze, " + fmt.Sprintf("%.2f", speed) + " m/s"
+	}
+	if speed >= 1 || speed <= 3 {
+		scale = "Light Air, " + fmt.Sprintf("%.2f", speed) + " m/s"
+	}
+	if speed >= 4 || speed <= 7 {
+		scale = "Light Breeze, " + fmt.Sprintf("%.2f", speed) + " m/s"
+	}
+	if speed >= 8 || speed <= 12 {
+		scale = "Gentle Breeze, " + fmt.Sprintf("%.2f", speed) + " m/s"
+	}
+	if speed >= 13 || speed <= 18 {
+		scale = "Moderate, " + fmt.Sprintf("%.2f", speed) + " m/s"
+	}
+	if speed >= 19 || speed <= 24 {
+		scale = "Fresh, " + fmt.Sprintf("%.2f", speed) + " m/s"
+	}
+	if speed >= 25 || speed <= 31 {
+		scale = "Strong, " + fmt.Sprintf("%.2f", speed) + " m/s"
+	}
+
+	return scale
 }

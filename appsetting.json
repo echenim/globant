@@ -2,7 +2,8 @@
     "configurationmanagerlist":[
         {
             "port":"8080",
-            "cacheduration":"5"
+            "cacheduration":"5",
+            "apikey":"1508a9a4840a5574c822d70ca2132032"
         }
     ]
 }
