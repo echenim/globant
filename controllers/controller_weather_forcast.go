@@ -54,12 +54,12 @@ func (*Controller) Find(resp http.ResponseWriter, req *http.Request) {
 	resp.Header().Set("Content-Type", "application/json")
 	_city := chi.URLParam(req, "city")
 	_country := strings.ToLower(chi.URLParam(req, "country"))
-	_day := chi.URLParam(req, "day")
+	//_day := chi.URLParam(req, "day")
 
-	resultset := models.ForecastResp{}
+	resultset := models.SixDaysForecastSetResp{}
 
-	if _city != "" && _country != "" && _day != "" {
-		resultset = _warz.GetByCityAndCountry(_city, _country, apikey)
+	if _city != "" && _country != "" {
+		resultset = _warz.GetByCityAndCountryAndDay(_city, _country, apikey)
 		resp.WriteHeader(http.StatusOK)
 		json.NewEncoder(resp).Encode(resultset)
 
@@ -68,3 +68,4 @@ func (*Controller) Find(resp http.ResponseWriter, req *http.Request) {
 	}
 	return
 }
+
