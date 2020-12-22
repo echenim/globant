@@ -2,10 +2,11 @@ package controllers
 
 import (
 	"encoding/json"
-	"fmt"
 	"net/http"
+	"strings"
 
 	"github.com/echenim/globant/midleware"
+	"github.com/echenim/globant/models"
 	"github.com/go-chi/chi"
 )
 
@@ -32,22 +33,38 @@ func (*Controller) Index(resp http.ResponseWriter, req *http.Request) {
 func (*Controller) Get(resp http.ResponseWriter, req *http.Request) {
 	resp.Header().Set("Content-Type", "application/json")
 	_city := chi.URLParam(req, "city")
-	_country := chi.URLParam(req, "country")
-	_day := chi.URLParam(req, "day")
+	_country := strings.ToLower(chi.URLParam(req, "country"))
 
-	resultset := midleware.ForecastResp{}
-
-	fmt.Println(_country)
-	if _city != "" && _country != "" && _day != "" {
-		//resultset = _warz.GetByCityAndCountry(_city, _country, _config.ConfigurationManager().ConfigurationManagerList[0].APIKey)
-	}
+	resultset := models.ForecastResp{}
 
 	if _city != "" && _country != "" {
 		resultset = _warz.GetByCityAndCountry(_city, _country, apikey)
+		resp.WriteHeader(http.StatusOK)
+		json.NewEncoder(resp).Encode(resultset)
+
+	} else {
+		resp.WriteHeader(http.StatusBadRequest)
 	}
 
-	resp.WriteHeader(http.StatusOK)
-	json.NewEncoder(resp).Encode(resultset)
+	return
+}
 
+//Find function for fetching records
+func (*Controller) Find(resp http.ResponseWriter, req *http.Request) {
+	resp.Header().Set("Content-Type", "application/json")
+	_city := chi.URLParam(req, "city")
+	_country := strings.ToLower(chi.URLParam(req, "country"))
+	_day := chi.URLParam(req, "day")
+
+	resultset := models.ForecastResp{}
+
+	if _city != "" && _country != "" && _day != "" {
+		resultset = _warz.GetByCityAndCountry(_city, _country, apikey)
+		resp.WriteHeader(http.StatusOK)
+		json.NewEncoder(resp).Encode(resultset)
+
+	} else {
+		resp.WriteHeader(http.StatusBadRequest)
+	}
 	return
 }

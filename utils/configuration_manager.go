@@ -65,44 +65,44 @@ func (*ConfigManager) WindScale(speed float64) string {
 	if speed >= 1.00 && speed <= 3.00 {
 		scale = "Light Air, " + fmt.Sprintf("%.2f", speed) + " m/s"
 	}
-	if speed >= 4.00 && speed <= 7.00 {
+	if speed > 3.00 && speed <= 7.00 {
 		scale = "Light Breeze, " + fmt.Sprintf("%.2f", speed) + " m/s"
 	}
-	if speed >= 8.00 && speed <= 12.00 {
+	if speed > 7.00 && speed <= 12.00 {
 		scale = "Gentle Breeze, " + fmt.Sprintf("%.2f", speed) + " m/s"
 	}
-	if speed >= 13.00 && speed <= 18.00 {
+	if speed > 12.00 && speed <= 18.00 {
 		scale = "Moderate, " + fmt.Sprintf("%.2f", speed) + " m/s"
 	}
-	if speed >= 19.00 && speed <= 24.00 {
+	if speed > 18.00 && speed <= 24.00 {
 		scale = "Fresh, " + fmt.Sprintf("%.2f", speed) + " m/s"
 	}
-	if speed >= 25.00 && speed <= 31.00 {
+	if speed > 24.00 && speed <= 31.00 {
 		scale = "Strong, " + fmt.Sprintf("%.2f", speed) + " m/s"
 	}
 
-	if speed >= 32.00 && speed <= 38.00 {
+	if speed > 31.00 && speed <= 38.00 {
 		scale = "Near Gale, " + fmt.Sprintf("%.2f", speed) + " m/s"
 	}
 
-	if speed >= 39.00 && speed <= 46.00 {
+	if speed > 38.00 && speed <= 46.00 {
 		scale = "Gale, " + fmt.Sprintf("%.2f", speed) + " m/s"
 	}
 
-	if speed >= 47.00 && speed <= 54.00 {
+	if speed > 46.00 && speed <= 54.00 {
 		scale = "Strong Gale, " + fmt.Sprintf("%.2f", speed) + " m/s"
 	}
 
-	if speed >= 55.00 && speed <= 63.00 {
+	if speed > 54.00 && speed <= 63.00 {
 		scale = "Storm, " + fmt.Sprintf("%.2f", speed) + " m/s"
 	}
-	if speed >= 64.00 && speed <= 73.00 {
+	if speed > 63.00 && speed <= 73.00 {
 		scale = "Violent Storm, " + fmt.Sprintf("%.2f", speed) + " m/s"
 	}
-	if speed >= 74.00 && speed <= 95.00 {
+	if speed > 73.00 && speed <= 95.00 {
 		scale = "Hurricane, " + fmt.Sprintf("%.2f", speed) + " m/s"
 	}
-
+	//fmt.Println("wind speed ", speed, "   ", scale)
 	return scale
 }
 

@@ -23,7 +23,7 @@ func main() {
 	_routes = handlers.NewMux(r)
 	_routes.GET("/", _controller.Index)
 	_routes.GET("/weatherforecast/{city},{country}", _controller.Get)
-	_routes.GET("/weatherforecast/{city},{country}/{day}", _controller.Get)
+	_routes.GET("/weatherforecast/{city},{country}/{day}", _controller.Find)
 	_routes.SERVE(_config.ConfigurationManager().ConfigurationManagerList[0].Port)
 
 }
