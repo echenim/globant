@@ -2,21 +2,22 @@ package controllers
 
 import (
 	"encoding/json"
+	"fmt"
 	"net/http"
 
 	"github.com/echenim/globant/midleware"
-	"github.com/echenim/globant/utils"
 	"github.com/go-chi/chi"
 )
 
 var (
-	_warz   midleware.IApi
-	_config utils.IConfigurationManager
+	_warz  midleware.IApi
+	apikey string
 )
 
 //NewWeatherController psudo contrustor
-func NewWeatherController() IController {
-
+func NewWeatherController(key string) IController {
+	_warz = midleware.NewForeCastAPI()
+	apikey = key
 	return &Controller{}
 }
 
@@ -33,16 +34,20 @@ func (*Controller) Get(resp http.ResponseWriter, req *http.Request) {
 	_city := chi.URLParam(req, "city")
 	_country := chi.URLParam(req, "country")
 	_day := chi.URLParam(req, "day")
-	_warz = midleware.NewForeCastAPI()
+
+	resultset := midleware.ForecastResp{}
+
+	fmt.Println(_country)
 	if _city != "" && _country != "" && _day != "" {
-		_warz.GetByCityAndCountry("Bogota", "co", _config.ConfigurationManager().ConfigurationManagerList[0].APIKey)
+		//resultset = _warz.GetByCityAndCountry(_city, _country, _config.ConfigurationManager().ConfigurationManagerList[0].APIKey)
 	}
 
 	if _city != "" && _country != "" {
-		_warz.GetByCityAndCountry(_city, _country, _config.ConfigurationManager().ConfigurationManagerList[0].APIKey)
+		resultset = _warz.GetByCityAndCountry(_city, _country, apikey)
 	}
 
-}
+	resp.WriteHeader(http.StatusOK)
+	json.NewEncoder(resp).Encode(resultset)
 
-//
-//	k :=
+	return
+}

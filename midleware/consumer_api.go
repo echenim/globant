@@ -2,10 +2,14 @@ package midleware
 
 import (
 	"encoding/json"
-	"fmt"
 	"io/ioutil"
 	"net/http"
 	"strconv"
+	"time"
+
+	"github.com/echenim/globant/utils/logs"
+
+	"fmt"
 
 	"github.com/echenim/globant/utils"
 )
@@ -25,20 +29,27 @@ func (*WeatherForeCast) GetByCityAndCountry(city string, country string, apiid s
 	url := "http://api.openweathermap.org/data/2.5/weather?q=" + city + "," + country + "&units=metric&appid=" + apiid
 	resp, er := http.Get(url)
 	if er != nil {
-		fmt.Println(er.Error())
+		l := logs.LogBook{
+			Message:  er.Error(),
+			Kind:     "FAILED",
+			DateTime: time.Now().String()}
+		l.Log("API")
 	}
-
+	defer resp.Body.Close()
 	forecastData, e := ioutil.ReadAll(resp.Body)
 	if e != nil {
-		fmt.Println(e.Error())
+		l := logs.LogBook{
+			Message:  e.Error(),
+			Kind:     "FAILED",
+			DateTime: time.Now().String()}
+		l.Log("API-DATA")
 	}
 
 	var forecastObj Forecast
 	json.Unmarshal(forecastData, &forecastObj)
 
-	fmt.Println(forecastObj)
-
 	rsObj := ForecastResp{}
+	rsObj.LocationName = "Lagos Kano Abuja"
 	rsObj.LocationName = forecastObj.Name + " , " + forecastObj.Sys.Country
 	rsObj.Temperature = fmt.Sprintf("%.2f", forecastObj.Main.Temp) + " C"
 	rsObj.Wind = config.WindScale(forecastObj.Wind.Speed) + ", " + config.Direction(forecastObj.Wind.Deg)
