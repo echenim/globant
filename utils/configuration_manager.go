@@ -38,7 +38,8 @@ func (*ConfigManager) ConfigurationManager() *ConfigurationList {
 //UnixToHumanReasible function
 func (*ConfigManager) UnixToHumanReasible(unixTime int64) string {
 	t := time.Unix(unixTime, 0)
-	return t.Format(time.UnixDate)
+	year, month, day := t.Date()
+	return month.String() + " " + strconv.Itoa(day) + ", " + strconv.Itoa(year) + " " + strconv.Itoa(t.Hour()) + ":" + strconv.Itoa(t.Minute()) + ":" + strconv.Itoa(t.Second())
 }
 
 //TimeParse function
@@ -46,13 +47,6 @@ func (*ConfigManager) TimeParse(unixTime int64) string {
 	t := time.Unix(unixTime, 0)
 	return ampmformatta(t.Hour(), t.Minute())
 }
-
-// func (*ConfigManager) TimeParse(unixTime int64) string {
-// 	t := time.Unix(unixTime, 0)
-// 	ut := t.Format(time.UnixDate)
-// 	tt, _ := time.Parse("yyyy-dd-dd hh:mm", ut)
-// 	return ""
-// }
 
 func ampmformatta(h int, m int) string {
 	if h < 12 {

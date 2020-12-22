@@ -45,8 +45,8 @@ func (*WeatherForeCast) GetByCityAndCountry(city string, country string, apiid s
 	rsObj.Cloudiness = forecastObj.Weather[0].Description
 	rsObj.Pressure = strconv.Itoa(forecastObj.Main.Pressure) + " hpa"
 	rsObj.Humidity = strconv.Itoa(forecastObj.Main.Humidity) + "%"
-	rsObj.SunRise = config.UnixToHumanReasible(forecastObj.Sys.SunRise)
-	rsObj.SunSet = config.UnixToHumanReasible(forecastObj.Sys.SunSet)
+	rsObj.SunRise = config.TimeParse(forecastObj.Sys.SunRise)
+	rsObj.SunSet = config.TimeParse(forecastObj.Sys.SunSet)
 	rsObj.Coordinates = []float64{forecastObj.Coord.Lon, forecastObj.Coord.Lat}
 	rsObj.TimeStamp = config.UnixToHumanReasible(forecastObj.Datetime)
 

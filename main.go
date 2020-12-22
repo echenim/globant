@@ -1,9 +1,6 @@
 package main
 
 import (
-	"fmt"
-	"time"
-
 	"github.com/echenim/globant/controllers"
 	"github.com/echenim/globant/midleware"
 
@@ -33,7 +30,13 @@ func main() {
 
 	// k := _warz.GetByCityAndCountry("Shuzenji", "jp", _config.ConfigurationManager().ConfigurationManagerList[0].APIKey)
 	// fmt.Println(k)
+	// t := time.Unix(1608622609, 0)
+	// year, month, day := t.Date()
 
-	t := time.Unix(1608587328, 0)
-	fmt.Println("hello ", t.Hour())
+	// s := strconv.FormatInt(int64(month), 10)
+	// fmt.Println("Year   :", year)
+	// fmt.Println("Month  :", s)
+	// fmt.Println("Month  :", month.String())
+	// fmt.Println("Day    :", day)
+
 }
