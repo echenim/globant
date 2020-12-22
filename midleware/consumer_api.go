@@ -5,34 +5,23 @@ import (
 	"fmt"
 	"io/ioutil"
 	"net/http"
+
+	"github.com/echenim/globant/utils"
 )
 
-//Fetch function
-func Fetch() {
-	resp, er := http.Get("http://api.openweathermap.org/data/2.5/weather?q=Bogota,co&appid=1508a9a4840a5574c822d70ca2132032")
-	if er != nil {
-		fmt.Println(er.Error())
-	}
-
-	respData, e := ioutil.ReadAll(resp.Body)
-	if e != nil {
-		fmt.Println(e.Error())
-	}
-
-	var rsObj Forecast
-	json.Unmarshal(respData, &rsObj)
-	fmt.Println(rsObj)
-}
+var (
+	config utils.IConfigurationManager
+)
 
 //NewForeCastAPI psudo contractor
 func NewForeCastAPI() IApi {
+	config = utils.NewManager()
 	return &WeatherForeCast{}
 }
 
 //GetByCityAndCountry function defination for fetching forecast
 func (*WeatherForeCast) GetByCityAndCountry(city string, country string, apiid string) ForecastResp {
 	url := "http://api.openweathermap.org/data/2.5/weather?q=" + city + "," + country + "&units=metric&appid=" + apiid
-
 	resp, er := http.Get(url)
 	if er != nil {
 		fmt.Println(er.Error())
@@ -51,7 +40,8 @@ func (*WeatherForeCast) GetByCityAndCountry(city string, country string, apiid s
 	rsObj := ForecastResp{}
 	rsObj.LocationName = forecastObj.Name + " , " + forecastObj.Sys.Country
 	rsObj.Temperature = fmt.Sprintf("%.2f", forecastObj.Main.Temp) + " C"
-	rsObj.Wind = 
+	rsObj.Wind = config.WindScale(forecastObj.Wind.Speed) + ", " + config.Direction(forecastObj.Wind.Deg)
+	//rsObj.Cloudiness = forecastObj.Cloud.All
 
 	return rsObj
 }

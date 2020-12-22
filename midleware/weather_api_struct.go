@@ -60,8 +60,8 @@ type Mains struct {
 
 //Winds defination
 type Winds struct {
-	Speed int `json:"speed"`
-	Deg   int `json:"deg"`
+	Speed float64 `json:"speed"`
+	Deg   float64 `json:"deg"`
 }
 
 //Clouds defination
@@ -72,8 +72,8 @@ type Clouds struct {
 //System defination
 type System struct {
 	Type    int    `json:"type"`
-	ID      int64  `json:"id"`
+	ID      int    `json:"id"`
 	Country string `json:"country"`
-	SunRise int64  `json:"sunrise"`
-	SunSet  int64  `json:"sunset"`
+	SunRise int    `json:"sunrise"`
+	SunSet  int    `json:"sunset"`
 }
