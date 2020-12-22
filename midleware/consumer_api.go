@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"io/ioutil"
 	"net/http"
+	"strconv"
 
 	"github.com/echenim/globant/utils"
 )
@@ -41,7 +42,13 @@ func (*WeatherForeCast) GetByCityAndCountry(city string, country string, apiid s
 	rsObj.LocationName = forecastObj.Name + " , " + forecastObj.Sys.Country
 	rsObj.Temperature = fmt.Sprintf("%.2f", forecastObj.Main.Temp) + " C"
 	rsObj.Wind = config.WindScale(forecastObj.Wind.Speed) + ", " + config.Direction(forecastObj.Wind.Deg)
-	//rsObj.Cloudiness = forecastObj.Cloud.All
+	rsObj.Cloudiness = forecastObj.Weather[0].Description
+	rsObj.Pressure = strconv.Itoa(forecastObj.Main.Pressure) + " hpa"
+	rsObj.Humidity = strconv.Itoa(forecastObj.Main.Humidity) + "%"
+	rsObj.SunRise = config.UnixToHumanReasible(forecastObj.Sys.SunRise)
+	rsObj.SunSet = config.UnixToHumanReasible(forecastObj.Sys.SunSet)
+	rsObj.Coordinates = []float64{forecastObj.Coord.Lon, forecastObj.Coord.Lat}
+	rsObj.TimeStamp = config.UnixToHumanReasible(forecastObj.Datetime)
 
 	return rsObj
 }

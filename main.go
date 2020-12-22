@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"time"
 
 	"github.com/echenim/globant/controllers"
 	"github.com/echenim/globant/midleware"
@@ -30,6 +31,9 @@ func main() {
 
 	// _routes.SERVE(_config.ConfigurationManager().ConfigurationManagerList[0].Port)
 
-	k := _warz.GetByCityAndCountry("Shuzenji", "jp", _config.ConfigurationManager().ConfigurationManagerList[0].APIKey)
-	fmt.Println(k)
+	// k := _warz.GetByCityAndCountry("Shuzenji", "jp", _config.ConfigurationManager().ConfigurationManagerList[0].APIKey)
+	// fmt.Println(k)
+
+	t := time.Unix(1608587328, 0)
+	fmt.Println("hello ", t.Hour())
 }

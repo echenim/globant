@@ -1,9 +1,5 @@
 package midleware
 
-import (
-	"time"
-)
-
 //WeatherForeCast defination from API
 type WeatherForeCast struct {
 }
@@ -19,19 +15,20 @@ type ForecastResp struct {
 	SunRise      string    `json:"sunrise"`
 	SunSet       string    `json:"sunset"`
 	Coordinates  []float64 `json:"geo_coordinates"`
-	TimeStamp    time.Time `json:"requested_time"`
+	TimeStamp    string    `json:"requested_time"`
 }
 
 //Forecast defination
 type Forecast struct {
-	Name    string      `json:"name"`
-	Coord   Coordinates `json:"coord"`
-	Weather []Weathers  `json:"weather"`
-	Base    string      `json:"base"`
-	Main    Mains       `json:"main"`
-	Wind    Winds       `json:"wind"`
-	Cloud   Clouds      `json:"clouds"`
-	Sys     System      `json:"sys"`
+	Name     string      `json:"name"`
+	Coord    Coordinates `json:"coord"`
+	Weather  []Weathers  `json:"weather"`
+	Base     string      `json:"base"`
+	Main     Mains       `json:"main"`
+	Wind     Winds       `json:"wind"`
+	Cloud    Clouds      `json:"clouds"`
+	Sys      System      `json:"sys"`
+	Datetime int64      `json:"dt"`
 }
 
 //Coordinates defination
@@ -74,6 +71,6 @@ type System struct {
 	Type    int    `json:"type"`
 	ID      int    `json:"id"`
 	Country string `json:"country"`
-	SunRise int    `json:"sunrise"`
-	SunSet  int    `json:"sunset"`
+	SunRise int64  `json:"sunrise"`
+	SunSet  int64  `json:"sunset"`
 }

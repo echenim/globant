@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"io/ioutil"
 	"os"
+	"strconv"
 	"time"
 )
 
@@ -38,6 +39,27 @@ func (*ConfigManager) ConfigurationManager() *ConfigurationList {
 func (*ConfigManager) UnixToHumanReasible(unixTime int64) string {
 	t := time.Unix(unixTime, 0)
 	return t.Format(time.UnixDate)
+}
+
+//TimeParse function
+func (*ConfigManager) TimeParse(unixTime int64) string {
+	t := time.Unix(unixTime, 0)
+	return ampmformatta(t.Hour(), t.Minute())
+}
+
+// func (*ConfigManager) TimeParse(unixTime int64) string {
+// 	t := time.Unix(unixTime, 0)
+// 	ut := t.Format(time.UnixDate)
+// 	tt, _ := time.Parse("yyyy-dd-dd hh:mm", ut)
+// 	return ""
+// }
+
+func ampmformatta(h int, m int) string {
+	if h < 12 {
+		return strconv.Itoa(h) + ":" + strconv.Itoa(m) + "AM"
+	}
+	hh := h - 12
+	return strconv.Itoa(hh) + ":" + strconv.Itoa(m) + "PM"
 }
 
 //WindScale function
