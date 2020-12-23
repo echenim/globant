@@ -22,7 +22,8 @@ Example :
  
 6. You can also get forecast for the next 5 days and 3 horse forecast for each day using the url below:
 localhost:808/weatherforecast/city_name,country_code/cont
- localhost:8080/weatherforecast/Toronto,ca/0
+
+localhost:8080/weatherforecast/Toronto,ca/0
  
  
                  
