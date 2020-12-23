@@ -6,12 +6,12 @@
 3. Change the API key incase it has change by editing the key section on the appsetting.json
 
 
-##To run the test cases:
+## To run the test cases:
 1. Open the terminal or the command prompt
 2. Navigate to the tests  folder in the terminal
 3. Run this command   go test configuration_test.go midleware_test.go
 
-##To run the program: 
+## To run the program: 
 1. Open the Terminal or command prompt
 2. Navigate to the globant folder
 3. Run this command go run main.go
